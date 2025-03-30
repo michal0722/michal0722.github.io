@@ -1,5 +1,31 @@
 <!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL.js-httpvfs Demo</title>
+    <script src="./dist/bundle.js"></script>
+</head>
+<body>
+    <h2>Vyhledat zastávky</h2>
+    <label for="runNumber">Číslo linky:</label>
+    <input type="text" id="routeShortName" value="191">
+    <input type="number" id="runNumber" value="1">
+    <button onclick="load()">Vyhledat</button>
 
-<title>Minimal sql.js-httpvfs demo</title>
-<script src="./dist/bundle.js"></script>
-<div>Hello World!</div>
+    <h3>Výsledky:</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Čas odjezdu</th>
+                <th>Název zastávky</th>
+            </tr>
+        </thead>
+        <tbody id="results">
+        </tbody>
+    </table>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
+
