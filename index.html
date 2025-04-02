@@ -1,31 +1,72 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SQL.js-httpvfs Demo</title>
-    <script src="./dist/bundle.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VHD - Info</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="./dist/bundle.js"></script>
 </head>
 <body>
-    <h2>Vyhledat zastávky</h2>
-    <label for="runNumber">Číslo linky:</label>
-    <input type="text" id="routeShortName" value="191">
-    <input type="number" id="runNumber" value="1">
-    <button onclick="load()">Vyhledat</button>
+  <div id="app">
+    <nav class="sidebar">
+      <h2>Menu</h2>
+      <button onclick="showSearchByRoute()">VJŘ dle kódu</button>
+      <button onclick="showSearchByStop()">VJŘ dle času</button>
+    </nav>
 
-    <h3>Výsledky:</h3>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Čas odjezdu</th>
-                <th>Název zastávky</th>
+    <div class="main-content">
+      <div class="container">
+        <h2>Vyhledání</h2>
+        <form onsubmit="event.preventDefault(); load(); updateTableHeaders();">
+          <div class="form-grid">
+            <div class="form-control">
+              <label for="routeShortName">Oběh</label>
+              <input type="text" id="routeShortName" value="191" />
+            </div>
+            <div class="form-control">
+              <label for="runNumber">Pořadí</label>
+              <input type="number" id="runNumber" value="1" />
+            </div>
+          </div>
+          <div class="form-checkbox">
+            <input type="checkbox" id="alternateDirection" />
+            <label for="alternateDirection">Střídavé pořadí</label>
+          </div>
+          <button type="button" onclick="load(); updateTableHeaders();">Vyhledat</button>
+        </form>
+
+        <table>
+          <thead>
+            <tr id="table-headers">
+              <th>Linka</th>
+              <th>Výchozí zastávka</th>
+              <th>Cílová zastávka</th>
             </tr>
-        </thead>
-        <tbody id="results">
-        </tbody>
-    </table>
+          </thead>
+          <tbody id="results"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
-    <script type="module" src="script.js"></script>
+  <footer>&copy; 2025 VJŘ</footer>
+
+  <script>
+    function showSearchByRoute() {
+      document.getElementById('search-by-route').style.display = 'block';
+    }
+
+    function updateTableHeaders() {
+      const alternate = document.getElementById("alternateDirection").checked;
+      const headers = document.getElementById("table-headers").children;
+
+      headers[1].textContent = alternate ? "Zastávka A" : "Výchozí zastávka";
+      headers[2].textContent = alternate ? "Zastávka B" : "Cílová zastávka";
+    }
+  </script>
 </body>
 </html>
-
